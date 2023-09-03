@@ -66,7 +66,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
 
         SubMenu labelsSubMenu = menu.addSubMenu("Todas las etiquetas");
 
-        MenuItem allMailsItem = labelsSubMenu.add(Menu.NONE, 4, 4, "Todos los correos"); // Agregar la etiqueta "Todos los correos"
+        MenuItem allMailsItem = labelsSubMenu.add(Menu.NONE, 4, 4, "Todos los correos");
         allMailsItem.setIcon(R.drawable.ic_action_allinmox);
 
         MenuItem starredItem = labelsSubMenu.add(Menu.NONE, 5, 5, "Destacados");
