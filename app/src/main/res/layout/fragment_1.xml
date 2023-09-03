@@ -10,7 +10,7 @@
         android:id="@+id/txtMensajeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment1"
+        android:text="Bienvenido"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold" />

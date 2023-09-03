@@ -21,6 +21,9 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
     private Fragment1 fragment;
     private DrawerLayout drawerLayout;
 
+    // Variable para llevar un registro del ítem previamente seleccionado
+    private MenuItem selectedItem = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +55,7 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
     public void crearMenuDinamico() {
         SubMenu socialSubMenu = menu.addSubMenu("Social");
 
-        MenuItem primaryItem = socialSubMenu.add(Menu.NONE, 1, 1, "Primary");
+        MenuItem primaryItem = socialSubMenu.add(Menu.NONE, 1, 1, "Principal");
         primaryItem.setIcon(R.drawable.ic_action_primary);
 
         MenuItem socialItem = socialSubMenu.add(Menu.NONE, 2, 2, "Social");
@@ -63,16 +66,19 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
 
         SubMenu labelsSubMenu = menu.addSubMenu("Todas las etiquetas");
 
-        MenuItem starredItem = labelsSubMenu.add(Menu.NONE, 4, 4, "Destacados");
+        MenuItem allMailsItem = labelsSubMenu.add(Menu.NONE, 4, 4, "Todos los correos"); // Agregar la etiqueta "Todos los correos"
+        allMailsItem.setIcon(R.drawable.ic_action_allinmox);
+
+        MenuItem starredItem = labelsSubMenu.add(Menu.NONE, 5, 5, "Destacados");
         starredItem.setIcon(R.drawable.ic_action_start);
 
-        MenuItem importantItem = labelsSubMenu.add(Menu.NONE, 5, 5, "Importantes");
+        MenuItem importantItem = labelsSubMenu.add(Menu.NONE, 6, 6, "Importantes");
         importantItem.setIcon(R.drawable.ic_action_important);
 
-        MenuItem sentItem = labelsSubMenu.add(Menu.NONE, 6, 6, "Enviados");
+        MenuItem sentItem = labelsSubMenu.add(Menu.NONE, 7, 7, "Enviados");
         sentItem.setIcon(R.drawable.ic_action_sent);
 
-        MenuItem outboxItem = labelsSubMenu.add(Menu.NONE, 7, 7, "Bandeja de salida");
+        MenuItem outboxItem = labelsSubMenu.add(Menu.NONE, 8, 8, "Bandeja de salida");
         outboxItem.setIcon(R.drawable.ic_action_out);
 
 
@@ -89,12 +95,29 @@ public class MainActivity3 extends AppCompatActivity implements NavigationView.O
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        fragment.setContent("Contenido del Item " + item.getItemId());
+        // Desmarca el ítem previamente seleccionado (si hay alguno)
+        if (selectedItem != null) {
+            selectedItem.setChecked(false);
+        }
+
+        // Marca el nuevo ítem como seleccionado
         item.setChecked(true);
+
+        // Actualiza el título de la barra de herramientas con el nombre del ítem
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(item.getTitle());
         }
+
+        // Resto de la lógica para mostrar el contenido correspondiente
+        String contenido = "Contenido del Item " + item.getTitle();
+        fragment.setContent(contenido);
+
+        // Asigna el ítem actual como el ítem seleccionado
+        selectedItem = item;
+
+        // Cierra el cajón de navegación
         drawerLayout.closeDrawer(GravityCompat.START);
+
         return true;
     }
 }
